@@ -1,0 +1,23 @@
+{
+  "sessions": {
+    "ASIA": {
+      "start_utc": "00:00",
+      "end_utc": "06:00",
+      "label": "Asia / Pacific"
+    },
+    "LONDON": {
+      "start_utc": "06:00",
+      "end_utc": "12:00",
+      "label": "London / Europe"
+    },
+    "NY": {
+      "start_utc": "13:30",
+      "end_utc": "20:00",
+      "label": "New York"
+    }
+  },
+  "trading_day": {
+    "start_utc": "00:00",
+    "end_utc": "23:59"
+  }
+}
