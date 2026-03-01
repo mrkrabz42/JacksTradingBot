@@ -52,7 +52,7 @@ export function Sidebar() {
         {!collapsed && (
           <div className="overflow-hidden">
             <h1 className="text-sm font-bold text-white whitespace-nowrap">Mr 10Krabs</h1>
-            <span className="text-[10px] text-pink font-medium">PAPER MODE</span>
+            <span className="text-[10px] text-pink font-medium">ANALYSIS MODE</span>
           </div>
         )}
         {/* Mobile close button */}

@@ -76,14 +76,8 @@ export const MARKET_HOURS: Record<TimezoneKey, MarketConfig> = {
 
 export const NAV_ITEMS: NavItem[] = [
   { key: "dashboard", label: "Dashboard", icon: "LayoutDashboard", href: "/" },
-  { key: "positions", label: "Positions", icon: "Briefcase", href: "/positions" },
-  { key: "trades", label: "Trades", icon: "ArrowLeftRight", href: "/trades" },
-  { key: "strategy", label: "Strategy", icon: "Brain", href: "/strategy" },
   { key: "bot", label: "Bot Status", icon: "Activity", href: "/bot" },
-  { key: "market-hours", label: "Market Hours", icon: "Globe", href: "/market-hours" },
   { key: "backtest", label: "Backtest", icon: "CandlestickChart", href: "/backtest" },
-  { key: "alerts", label: "Alerts", icon: "Bell", href: "/alerts" },
-  { key: "settings", label: "Settings", icon: "Settings", href: "/settings" },
 ];
 
 export const GLOBE_MARKERS: GlobeMarker[] = [

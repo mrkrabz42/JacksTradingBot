@@ -45,7 +45,7 @@ export function TopBar() {
       {/* Center: live dot */}
       <div className="hidden sm:flex items-center gap-2 ml-auto mr-auto">
         <span className="h-2 w-2 rounded-full bg-success animate-pulse" />
-        <span className="text-xs text-muted-foreground">LIVE</span>
+        <span className="text-xs text-muted-foreground">ANALYZING</span>
       </div>
 
       {/* Right side */}

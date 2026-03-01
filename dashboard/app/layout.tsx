@@ -11,8 +11,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Mr 10Krabs | Trading Dashboard",
-  description: "Road to 10K - Automated trading bot monitoring dashboard",
+  title: "Mr 10Krabs | Market Analysis",
+  description: "Road to 10K v2 - Market analysis assistant for human traders",
 };
 
 export default function RootLayout({
