@@ -16,6 +16,9 @@ const FACTOR_NAMES = [
   "Employment (NFP/Unemployment)",
   "Risk Sentiment (VIX)",
   "Relative Economic Strength",
+  "Market Breadth (Credit Spreads)",
+  "Commodity Demand Signals",
+  "Geopolitical/Systemic Risk",
 ] as const;
 
 type FactorName = (typeof FACTOR_NAMES)[number];
@@ -31,6 +34,9 @@ const WEIGHT_MATRIX: Record<string, Record<FactorName, number>> = {
     "Employment (NFP/Unemployment)": 3,
     "Risk Sentiment (VIX)": 5,
     "Relative Economic Strength": 2,
+    "Market Breadth (Credit Spreads)": 4,
+    "Commodity Demand Signals": 1,
+    "Geopolitical/Systemic Risk": 3,
   },
   SPX500_USD: {
     "Interest Rate Expectations": 4,
@@ -40,6 +46,9 @@ const WEIGHT_MATRIX: Record<string, Record<FactorName, number>> = {
     "Employment (NFP/Unemployment)": 3,
     "Risk Sentiment (VIX)": 5,
     "Relative Economic Strength": 2,
+    "Market Breadth (Credit Spreads)": 4,
+    "Commodity Demand Signals": 1,
+    "Geopolitical/Systemic Risk": 3,
   },
   EUR_USD: {
     "Interest Rate Expectations": 4,
@@ -49,6 +58,9 @@ const WEIGHT_MATRIX: Record<string, Record<FactorName, number>> = {
     "Employment (NFP/Unemployment)": 2,
     "Risk Sentiment (VIX)": 2,
     "Relative Economic Strength": 5,
+    "Market Breadth (Credit Spreads)": 2,
+    "Commodity Demand Signals": 1,
+    "Geopolitical/Systemic Risk": 3,
   },
   GBP_USD: {
     "Interest Rate Expectations": 4,
@@ -58,6 +70,9 @@ const WEIGHT_MATRIX: Record<string, Record<FactorName, number>> = {
     "Employment (NFP/Unemployment)": 2,
     "Risk Sentiment (VIX)": 2,
     "Relative Economic Strength": 5,
+    "Market Breadth (Credit Spreads)": 2,
+    "Commodity Demand Signals": 1,
+    "Geopolitical/Systemic Risk": 3,
   },
   XAU_USD: {
     "Interest Rate Expectations": 3,
@@ -67,6 +82,9 @@ const WEIGHT_MATRIX: Record<string, Record<FactorName, number>> = {
     "Employment (NFP/Unemployment)": 2,
     "Risk Sentiment (VIX)": 3,
     "Relative Economic Strength": 2,
+    "Market Breadth (Credit Spreads)": 2,
+    "Commodity Demand Signals": 5,
+    "Geopolitical/Systemic Risk": 4,
   },
   XAG_USD: {
     "Interest Rate Expectations": 2,
@@ -76,6 +94,9 @@ const WEIGHT_MATRIX: Record<string, Record<FactorName, number>> = {
     "Employment (NFP/Unemployment)": 2,
     "Risk Sentiment (VIX)": 3,
     "Relative Economic Strength": 2,
+    "Market Breadth (Credit Spreads)": 2,
+    "Commodity Demand Signals": 5,
+    "Geopolitical/Systemic Risk": 3,
   },
 };
 
@@ -96,6 +117,9 @@ const DIRECTION_FLIP: Record<string, Record<FactorName, 1 | -1>> = {
     "Employment (NFP/Unemployment)": 1, // weak jobs = more easing = bullish
     "Risk Sentiment (VIX)": 1,       // low VIX = bullish
     "Relative Economic Strength": 1,  // US strong = bullish for US indices
+    "Market Breadth (Credit Spreads)": 1,  // tightening spreads = risk-on = bullish
+    "Commodity Demand Signals": 1,    // rising commodity demand = growth
+    "Geopolitical/Systemic Risk": 1,  // low risk = bullish
   },
   SPX500_USD: {
     "Interest Rate Expectations": 1,
@@ -105,6 +129,9 @@ const DIRECTION_FLIP: Record<string, Record<FactorName, 1 | -1>> = {
     "Employment (NFP/Unemployment)": 1,
     "Risk Sentiment (VIX)": 1,
     "Relative Economic Strength": 1,
+    "Market Breadth (Credit Spreads)": 1,
+    "Commodity Demand Signals": 1,
+    "Geopolitical/Systemic Risk": 1,
   },
   // FX pairs: rising USD = bearish for EUR/USD and GBP/USD
   EUR_USD: {
@@ -115,6 +142,9 @@ const DIRECTION_FLIP: Record<string, Record<FactorName, 1 | -1>> = {
     "Employment (NFP/Unemployment)": -1,
     "Risk Sentiment (VIX)": 1,        // risk-on = bullish for EUR/USD
     "Relative Economic Strength": -1,  // US outperforming = bearish for EUR/USD
+    "Market Breadth (Credit Spreads)": 1,  // tightening = risk-on = EUR gains
+    "Commodity Demand Signals": 1,     // rising commodities = weaker USD
+    "Geopolitical/Systemic Risk": 1,   // low risk = risk-on = EUR gains
   },
   GBP_USD: {
     "Interest Rate Expectations": -1,
@@ -124,6 +154,9 @@ const DIRECTION_FLIP: Record<string, Record<FactorName, 1 | -1>> = {
     "Employment (NFP/Unemployment)": -1,
     "Risk Sentiment (VIX)": 1,
     "Relative Economic Strength": -1,
+    "Market Breadth (Credit Spreads)": 1,
+    "Commodity Demand Signals": 1,
+    "Geopolitical/Systemic Risk": 1,
   },
   // Gold/Silver: anti-USD, safe haven
   XAU_USD: {
@@ -134,6 +167,9 @@ const DIRECTION_FLIP: Record<string, Record<FactorName, 1 | -1>> = {
     "Employment (NFP/Unemployment)": 1, // weak jobs = easing = bullish
     "Risk Sentiment (VIX)": -1,       // high VIX = safe haven demand = bullish (inverted)
     "Relative Economic Strength": -1,  // US strong = USD strong = bearish gold
+    "Market Breadth (Credit Spreads)": -1, // widening spreads = risk-off = gold bullish (inverted)
+    "Commodity Demand Signals": 1,     // rising commodity demand = bullish gold
+    "Geopolitical/Systemic Risk": -1,  // high risk = safe haven demand = bullish (inverted)
   },
   XAG_USD: {
     "Interest Rate Expectations": 1,
@@ -143,6 +179,9 @@ const DIRECTION_FLIP: Record<string, Record<FactorName, 1 | -1>> = {
     "Employment (NFP/Unemployment)": 1,
     "Risk Sentiment (VIX)": -1,
     "Relative Economic Strength": -1,
+    "Market Breadth (Credit Spreads)": -1, // widening spreads = risk-off = silver bullish (inverted)
+    "Commodity Demand Signals": 1,     // rising commodity demand = bullish silver
+    "Geopolitical/Systemic Risk": -1,  // high risk = safe haven = bullish (inverted)
   },
 };
 
@@ -168,6 +207,17 @@ function toState(dir: 1 | 0 | -1): "Bullish" | "Bearish" | "Neutral" {
   if (dir === 1) return "Bullish";
   if (dir === -1) return "Bearish";
   return "Neutral";
+}
+
+// ── Commodity price data ────────────────────────────────────────────────────
+
+export interface CommodityPriceData {
+  xauCurrent: number | null;
+  xauSma5d: number | null;
+  xauSma20d: number | null;
+  xagCurrent: number | null;
+  xagSma5d: number | null;
+  xagSma20d: number | null;
 }
 
 // ── Individual factor scorers ───────────────────────────────────────────────
@@ -257,6 +307,60 @@ function scoreRelativeStrength(usProd: FredObservation[], ukProd: FredObservatio
   return 0;
 }
 
+function scoreCreditSpreads(hyOas: FredObservation[]): 1 | 0 | -1 {
+  // Widening HY OAS = risk-off = -1 (bad for risk assets)
+  // Tightening = risk-on = +1
+  const slope = slopeDirection(hyOas, 5);
+  if (slope === 1) return -1;  // widening spreads = risk-off
+  if (slope === -1) return 1;  // tightening spreads = risk-on
+  return 0;
+}
+
+function scoreCommodityDemand(commodity: CommodityPriceData): 1 | 0 | -1 {
+  // Compare current gold/silver prices to their 5d vs 20d moving averages
+  // 5d > 20d = momentum up = +1
+  let signals = 0;
+
+  if (commodity.xauSma5d != null && commodity.xauSma20d != null && commodity.xauSma20d > 0) {
+    const xauMomentum = (commodity.xauSma5d - commodity.xauSma20d) / commodity.xauSma20d;
+    if (xauMomentum > 0.005) signals += 1;
+    else if (xauMomentum < -0.005) signals -= 1;
+  }
+
+  if (commodity.xagSma5d != null && commodity.xagSma20d != null && commodity.xagSma20d > 0) {
+    const xagMomentum = (commodity.xagSma5d - commodity.xagSma20d) / commodity.xagSma20d;
+    if (xagMomentum > 0.005) signals += 1;
+    else if (xagMomentum < -0.005) signals -= 1;
+  }
+
+  if (signals > 0) return 1;
+  if (signals < 0) return -1;
+  return 0;
+}
+
+function scoreSystemicRisk(t10y3m: FredObservation[], vix: FredObservation[]): 1 | 0 | -1 {
+  // Dual signal: yield curve inversion + VIX level
+  // Inverted curve (negative T10Y3M) + high VIX = systemic risk = -1
+  // Positive curve + low VIX = stable = +1
+  let signals = 0;
+
+  if (t10y3m.length >= 1) {
+    const spread = t10y3m[0].value;
+    if (spread < 0) signals -= 1;       // inverted = risk
+    else if (spread > 0.5) signals += 1; // healthy curve = stable
+  }
+
+  if (vix.length >= 1) {
+    const level = vix[0].value;
+    if (level > 25) signals -= 1;   // elevated fear
+    else if (level < 18) signals += 1; // calm
+  }
+
+  if (signals > 0) return 1;   // low systemic risk
+  if (signals < 0) return -1;  // elevated systemic risk
+  return 0;
+}
+
 // ── Main scoring function ───────────────────────────────────────────────────
 
 export interface DxyPriceData {
@@ -268,6 +372,8 @@ export function scoreFundamentals(
   symbol: string,
   rawData: FredRawData,
   dxy: DxyPriceData,
+  commodity: CommodityPriceData = { xauCurrent: null, xauSma5d: null, xauSma20d: null, xagCurrent: null, xagSma5d: null, xagSma20d: null },
+  previousFactors?: FundamentalFactor[],
 ): FundamentalsData {
   const weights = WEIGHT_MATRIX[symbol];
   const flips = DIRECTION_FLIP[symbol];
@@ -285,7 +391,18 @@ export function scoreFundamentals(
     "Employment (NFP/Unemployment)": scoreEmployment(rawData.unrate, rawData.payems),
     "Risk Sentiment (VIX)": scoreVix(rawData.vix),
     "Relative Economic Strength": scoreRelativeStrength(rawData.usPmi, rawData.ukPmi),
+    "Market Breadth (Credit Spreads)": scoreCreditSpreads(rawData.hyOas),
+    "Commodity Demand Signals": scoreCommodityDemand(commodity),
+    "Geopolitical/Systemic Risk": scoreSystemicRisk(rawData.t10y3m, rawData.vix),
   };
+
+  // Build previous state lookup
+  const prevMap = new Map<string, "Bullish" | "Bearish" | "Neutral">();
+  if (previousFactors) {
+    for (const pf of previousFactors) {
+      prevMap.set(pf.name, pf.state);
+    }
+  }
 
   // Build factor array with asset-specific flipping
   const factors: FundamentalFactor[] = FACTOR_NAMES.map((name) => {
@@ -300,7 +417,7 @@ export function scoreFundamentals(
       direction: adjustedDir,
       weight,
       contribution: adjustedDir * weight,
-      previousState: null, // could be populated from cache in future
+      previousState: prevMap.get(name) ?? null,
     };
   });
 
@@ -308,12 +425,12 @@ export function scoreFundamentals(
   const netScore = factors.reduce((sum, f) => sum + f.contribution, 0);
   const maxPossibleScore = factors.reduce((sum, f) => sum + f.weight, 0);
 
-  // Map net score to bias label
+  // Map net score to bias label (scaled for 10 factors)
   let netBias: FundamentalsData["netBias"];
-  if (netScore > 10) netBias = "Strong Bullish";
-  else if (netScore >= 4) netBias = "Moderate Bullish";
-  else if (netScore >= -3) netBias = "Neutral";
-  else if (netScore >= -10) netBias = "Moderate Bearish";
+  if (netScore > 14) netBias = "Strong Bullish";
+  else if (netScore >= 6) netBias = "Moderate Bullish";
+  else if (netScore >= -5) netBias = "Neutral";
+  else if (netScore >= -14) netBias = "Moderate Bearish";
   else netBias = "Strong Bearish";
 
   // Normalize to 0-100 strength

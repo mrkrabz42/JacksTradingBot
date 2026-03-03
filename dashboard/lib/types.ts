@@ -116,3 +116,17 @@ export interface CalendarEvent {
   actual: string | null;
   status: "upcoming" | "imminent" | "released";
 }
+
+// Post-event market reaction
+export interface EventReaction {
+  eventId: string;
+  eventName: string;
+  scheduledAt: string;
+  symbol: string;
+  prePrice: number | null;
+  price15m: number | null;
+  price1h: number | null;
+  delta15mPct: number | null;
+  delta1hPct: number | null;
+  capturedAt: string;
+}

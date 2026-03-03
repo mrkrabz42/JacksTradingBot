@@ -21,10 +21,11 @@ function BiasLabel({ bias }: { bias: FundamentalsData["netBias"] }) {
   );
 }
 
-function StrengthBar({ strength }: { strength: number }) {
+function StrengthBar({ strength, dampened }: { strength: number; dampened?: boolean }) {
+  const displayStrength = dampened ? Math.min(60, Math.round(strength * 0.7)) : strength;
   const color =
-    strength >= 65 ? "bg-emerald-500" :
-    strength >= 40 ? "bg-zinc-400" :
+    displayStrength >= 65 ? "bg-emerald-500" :
+    displayStrength >= 40 ? "bg-zinc-400" :
     "bg-red-500";
 
   return (
@@ -32,10 +33,12 @@ function StrengthBar({ strength }: { strength: number }) {
       <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
         <div
           className={cn("h-full rounded-full transition-all duration-500", color)}
-          style={{ width: `${strength}%` }}
+          style={{ width: `${displayStrength}%` }}
         />
       </div>
-      <span className="text-[10px] text-muted-foreground font-mono w-7 text-right">{strength}%</span>
+      <span className="text-[10px] text-muted-foreground font-mono text-right">
+        {displayStrength}%{dampened && <span className="text-red-400/70 ml-0.5">(dampened)</span>}
+      </span>
     </div>
   );
 }
@@ -44,6 +47,18 @@ function DirectionIcon({ direction }: { direction: 1 | 0 | -1 }) {
   if (direction === 1) return <ArrowUpRight className="h-3 w-3 text-emerald-400" />;
   if (direction === -1) return <ArrowDownRight className="h-3 w-3 text-red-400" />;
   return <Minus className="h-3 w-3 text-zinc-500" />;
+}
+
+function StateChangeArrow({ factor }: { factor: FundamentalFactor }) {
+  if (!factor.previousState || factor.previousState === factor.state) return null;
+  // Determine if change is an improvement or deterioration
+  const stateRank = { Bearish: -1, Neutral: 0, Bullish: 1 } as const;
+  const prev = stateRank[factor.previousState];
+  const curr = stateRank[factor.state];
+  if (curr > prev) {
+    return <span className="text-[10px] text-emerald-400" title={`was ${factor.previousState}`}>{"\u2197"}</span>;
+  }
+  return <span className="text-[10px] text-red-400" title={`was ${factor.previousState}`}>{"\u2198"}</span>;
 }
 
 function FactorRow({ factor }: { factor: FundamentalFactor }) {
@@ -55,6 +70,7 @@ function FactorRow({ factor }: { factor: FundamentalFactor }) {
   return (
     <div className="flex items-center gap-2 py-1">
       <DirectionIcon direction={factor.direction} />
+      <StateChangeArrow factor={factor} />
       <span className="flex-1 text-[11px] text-zinc-300 truncate">{factor.name}</span>
       <span className="text-[10px] text-muted-foreground font-mono w-4 text-center">{factor.weight}</span>
       <span className={cn("text-[11px] font-bold font-mono w-6 text-right", contribColor)}>
@@ -64,7 +80,7 @@ function FactorRow({ factor }: { factor: FundamentalFactor }) {
   );
 }
 
-export function FundamentalsPanel({ data }: { data: FundamentalsData | undefined }) {
+export function FundamentalsPanel({ data, eventDampening }: { data: FundamentalsData | undefined; eventDampening?: boolean }) {
   const [expanded, setExpanded] = useState(false);
 
   if (!data) return null;
@@ -87,7 +103,10 @@ export function FundamentalsPanel({ data }: { data: FundamentalsData | undefined
         </div>
         <div className="flex items-center gap-1.5">
           {!expanded && (
-            <span className="text-[10px] text-muted-foreground font-mono">{data.strength}%</span>
+            <span className="text-[10px] text-muted-foreground font-mono">
+              {eventDampening ? `${Math.min(60, Math.round(data.strength * 0.7))}%` : `${data.strength}%`}
+              {eventDampening && <span className="text-red-400/70 ml-0.5">(dampened)</span>}
+            </span>
           )}
           {expanded ? (
             <ChevronUp className="h-3.5 w-3.5 text-muted-foreground group-hover:text-white transition-colors" />
@@ -100,7 +119,7 @@ export function FundamentalsPanel({ data }: { data: FundamentalsData | undefined
       {/* Expanded content */}
       {expanded && (
         <div className="mt-3 space-y-2">
-          <StrengthBar strength={data.strength} />
+          <StrengthBar strength={data.strength} dampened={eventDampening} />
 
           {/* Factor header */}
           <div className="flex items-center gap-2 pb-1 border-b border-border/30">

@@ -177,7 +177,7 @@ export function PathwaySkeleton() {
 }
 
 /* ── Main Pathway Card ────────────────────────────────────────────── */
-export function PathwayCard({ data, fundamentals }: { data: PathwayData; fundamentals?: FundamentalsData }) {
+export function PathwayCard({ data, fundamentals, volatilityWarning }: { data: PathwayData; fundamentals?: FundamentalsData; volatilityWarning?: boolean }) {
   const router = useRouter();
   const instrument = getInstrument(data.symbol);
   const inst = instrument ?? INSTRUMENTS[0];
@@ -199,6 +199,12 @@ export function PathwayCard({ data, fundamentals }: { data: PathwayData; fundame
         </div>
         <span className={cn("text-xs font-semibold opacity-70", inst.headerText)}>{inst.shortName}</span>
       </div>
+
+      {volatilityWarning && (
+        <div className="bg-red-500/15 px-4 py-1.5 text-[10px] font-bold text-red-400 text-center tracking-wide uppercase">
+          Volatility Warning — High-Impact Event Active
+        </div>
+      )}
 
       <div className="p-5 space-y-4">
         {/* 2. Account Equity + 3. Live Price */}
@@ -265,7 +271,7 @@ export function PathwayCard({ data, fundamentals }: { data: PathwayData; fundame
         </div>
 
         {/* 10. Fundamentals Panel */}
-        <FundamentalsPanel data={fundamentals} />
+        <FundamentalsPanel data={fundamentals} eventDampening={volatilityWarning} />
 
         {/* Market status indicator */}
         {!data.marketOpen && (

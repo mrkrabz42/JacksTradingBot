@@ -24,12 +24,14 @@ export const FRED_SERIES = {
   VIXCLS: "VIXCLS",         // CBOE VIX Close (daily)
   INDPRO: "INDPRO",         // US Industrial Production Index (monthly, PMI proxy)
   GBRPROINDMISMEI: "GBRPROINDMISMEI", // UK Industrial Production via OECD (monthly)
+  BAMLH0A0HYM2: "BAMLH0A0HYM2", // ICE BofA US High Yield OAS (daily, credit spread)
+  T10Y3M: "T10Y3M",         // 10Y minus 3M Treasury spread (daily, yield curve)
 } as const;
 
 export type FredSeriesId = keyof typeof FRED_SERIES;
 
 // Daily series get 1h TTL, monthly series get 6h TTL
-const DAILY_SERIES = new Set<string>(["DGS10", "DGS2", "VIXCLS"]);
+const DAILY_SERIES = new Set<string>(["DGS10", "DGS2", "VIXCLS", "BAMLH0A0HYM2", "T10Y3M"]);
 
 const CACHE_TTL_DAILY = 60 * 60 * 1000;    // 1 hour
 const CACHE_TTL_MONTHLY = 6 * 60 * 60 * 1000; // 6 hours
@@ -105,6 +107,8 @@ export interface FredRawData {
   vix: FredObservation[];
   usPmi: FredObservation[];
   ukPmi: FredObservation[];
+  hyOas: FredObservation[];
+  t10y3m: FredObservation[];
 }
 
 /**
@@ -112,7 +116,7 @@ export interface FredRawData {
  * Runs all fetches in parallel.
  */
 export async function fetchAllFredData(): Promise<FredRawData> {
-  const [dgs10, dgs2, cpi, corePce, unrate, payems, wages, vix, usPmi, ukPmi] =
+  const [dgs10, dgs2, cpi, corePce, unrate, payems, wages, vix, usPmi, ukPmi, hyOas, t10y3m] =
     await Promise.all([
       fetchSeries(FRED_SERIES.DGS10, 10),
       fetchSeries(FRED_SERIES.DGS2, 10),
@@ -124,7 +128,9 @@ export async function fetchAllFredData(): Promise<FredRawData> {
       fetchSeries(FRED_SERIES.VIXCLS, 10),
       fetchSeries(FRED_SERIES.INDPRO, 4),
       fetchSeries(FRED_SERIES.GBRPROINDMISMEI, 4),
+      fetchSeries(FRED_SERIES.BAMLH0A0HYM2, 10),
+      fetchSeries(FRED_SERIES.T10Y3M, 10),
     ]);
 
-  return { dgs10, dgs2, cpi, corePce, unrate, payems, wages, vix, usPmi, ukPmi };
+  return { dgs10, dgs2, cpi, corePce, unrate, payems, wages, vix, usPmi, ukPmi, hyOas, t10y3m };
 }

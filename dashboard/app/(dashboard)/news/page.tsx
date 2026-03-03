@@ -2,8 +2,9 @@
 
 import { useNewsCalendar } from "@/lib/hooks/use-news-calendar";
 import { useAllFundamentals } from "@/lib/hooks/use-fundamentals";
+import { useEventReactions } from "@/lib/hooks/use-event-reactions";
 import { cn } from "@/lib/utils";
-import type { CalendarEvent, FundamentalsData } from "@/lib/types";
+import type { CalendarEvent, FundamentalsData, EventReaction } from "@/lib/types";
 import { ArrowUpRight, ArrowDownRight, Minus } from "lucide-react";
 
 // ── Calendar event row ──────────────────────────────────────────────────────
@@ -196,11 +197,57 @@ function FundamentalsCard({ data }: { data: FundamentalsData }) {
   );
 }
 
+// ── Post-Event Reaction Card ────────────────────────────────────────────────
+
+function DeltaBadge({ value }: { value: number | null }) {
+  if (value == null) return <span className="text-[10px] text-zinc-600 font-mono">--</span>;
+  const color = value > 0 ? "text-emerald-400" : value < 0 ? "text-red-400" : "text-zinc-400";
+  return (
+    <span className={cn("text-[11px] font-bold font-mono", color)}>
+      {value > 0 ? "+" : ""}{value.toFixed(3)}%
+    </span>
+  );
+}
+
+function ReactionGroup({ eventName, scheduledAt, reactions }: { eventName: string; scheduledAt: string; reactions: EventReaction[] }) {
+  return (
+    <div className="bg-card border border-border rounded-xl p-4 space-y-3">
+      <div className="flex items-center justify-between">
+        <span className="text-sm font-bold text-white">{eventName}</span>
+        <span className="text-[10px] text-muted-foreground font-mono">
+          {new Date(scheduledAt).toLocaleString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
+        </span>
+      </div>
+      <div className="grid grid-cols-3 gap-1 text-center">
+        <span className="text-[9px] text-muted-foreground/60 uppercase">Symbol</span>
+        <span className="text-[9px] text-muted-foreground/60 uppercase">+15m</span>
+        <span className="text-[9px] text-muted-foreground/60 uppercase">+1h</span>
+      </div>
+      {reactions.map((r) => (
+        <div key={r.symbol} className="grid grid-cols-3 gap-1 text-center items-center">
+          <span className="text-[11px] text-zinc-300 font-medium">{r.symbol.replace("_", "/")}</span>
+          <DeltaBadge value={r.delta15mPct} />
+          <DeltaBadge value={r.delta1hPct} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // ── Main page ───────────────────────────────────────────────────────────────
 
 export default function NewsPage() {
   const { upcoming, released, isLoading: calLoading } = useNewsCalendar();
   const { fundamentals, isLoading: fundLoading } = useAllFundamentals();
+  const { reactions } = useEventReactions();
+
+  // Group reactions by event
+  const reactionsByEvent = reactions.reduce<Record<string, EventReaction[]>>((acc, r) => {
+    const key = r.eventId;
+    if (!acc[key]) acc[key] = [];
+    acc[key].push(r);
+    return acc;
+  }, {});
 
   return (
     <div className="space-y-8">
@@ -254,6 +301,25 @@ export default function NewsPage() {
           </div>
         )}
       </section>
+
+      {/* Post-Event Impact */}
+      {Object.keys(reactionsByEvent).length > 0 && (
+        <section className="space-y-4">
+          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+            Post-Event Impact
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+            {Object.entries(reactionsByEvent).map(([eventId, eventReactions]) => (
+              <ReactionGroup
+                key={eventId}
+                eventName={eventReactions[0].eventName}
+                scheduledAt={eventReactions[0].scheduledAt}
+                reactions={eventReactions}
+              />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Fundamentals Grid */}
       <section className="space-y-4">
