@@ -46,6 +46,23 @@ backtest/            → Backtests strategies on historical data
 dashboard/           → Next.js analysis dashboard
 ```
 
+### Dashboard — Fundamentals & News Integration
+```
+dashboard/lib/fred.ts                → FRED API client (10 macro series, in-memory cache)
+dashboard/lib/fundamentals-engine.ts → 7-factor scoring engine with asset-specific weights
+dashboard/lib/economic-calendar.ts   → Static calendar of US/UK high-impact events
+dashboard/app/api/fundamentals/      → GET /api/fundamentals?symbol= — scored macro data
+dashboard/app/api/news/calendar/     → GET /api/news/calendar — upcoming economic events
+dashboard/components/cards/fundamentals-panel.tsx → Expandable panel on pathway cards
+dashboard/components/cards/news-board.tsx         → Economic calendar in right panel
+dashboard/lib/hooks/use-fundamentals.ts  → SWR hook (5-min refresh)
+dashboard/lib/hooks/use-news-calendar.ts → SWR hook (1-min refresh)
+dashboard/lib/hooks/use-news-alerts.ts   → Toast alerts for imminent events
+```
+- **FRED API** (free): Interest rates, yields, CPI, PCE, employment, VIX, PMI
+- **DXY proxy**: Inverse EUR/USD mid price from OANDA
+- **Env vars**: `FRED_API_KEY` (required for fundamentals)
+
 ## IMPORTANT: Execution Disabled
 - `bot/execution/executor.py` contains **stubs only** — no orders are placed
 - The analysis pipeline runs fully but results are for human review only

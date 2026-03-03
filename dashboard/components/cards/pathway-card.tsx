@@ -5,6 +5,8 @@ import { type PathwayData } from "@/lib/hooks/use-pathway";
 import { type Instrument, INSTRUMENTS, getInstrument, formatInstrumentPrice } from "@/lib/constants";
 import { ArrowUp, ArrowDown, TrendingUp, Shield, Gem } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { FundamentalsPanel } from "./fundamentals-panel";
+import type { FundamentalsData } from "@/lib/types";
 
 function formatPrice(value: number): string {
   return new Intl.NumberFormat("en-US", {
@@ -175,7 +177,7 @@ export function PathwaySkeleton() {
 }
 
 /* ── Main Pathway Card ────────────────────────────────────────────── */
-export function PathwayCard({ data }: { data: PathwayData }) {
+export function PathwayCard({ data, fundamentals }: { data: PathwayData; fundamentals?: FundamentalsData }) {
   const router = useRouter();
   const instrument = getInstrument(data.symbol);
   const inst = instrument ?? INSTRUMENTS[0];
@@ -261,6 +263,9 @@ export function PathwayCard({ data }: { data: PathwayData }) {
             <WeekChart weekLine={weekLine} dayLabels={dayLabels} />
           </div>
         </div>
+
+        {/* 10. Fundamentals Panel */}
+        <FundamentalsPanel data={fundamentals} />
 
         {/* Market status indicator */}
         {!data.marketOpen && (

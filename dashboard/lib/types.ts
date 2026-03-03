@@ -81,3 +81,38 @@ export interface BotStatus {
   is_holiday?: boolean;
   data_date?: string;
 }
+
+// Fundamentals
+
+export interface FundamentalFactor {
+  name: string;
+  state: "Bullish" | "Bearish" | "Neutral";
+  direction: 1 | 0 | -1;
+  weight: number;
+  contribution: number; // direction * weight
+  previousState: "Bullish" | "Bearish" | "Neutral" | null;
+}
+
+export interface FundamentalsData {
+  symbol: string;
+  netBias: "Strong Bullish" | "Moderate Bullish" | "Neutral" | "Moderate Bearish" | "Strong Bearish";
+  netScore: number;
+  maxPossibleScore: number;
+  strength: number; // 0-100 normalized
+  factors: FundamentalFactor[];
+  updatedAt: string;
+}
+
+// Economic Calendar
+
+export interface CalendarEvent {
+  id: string;
+  name: string;
+  country: "US" | "UK";
+  impact: "RED" | "AMBER";
+  scheduledAt: string; // ISO timestamp
+  forecast: string | null;
+  previous: string | null;
+  actual: string | null;
+  status: "upcoming" | "imminent" | "released";
+}

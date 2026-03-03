@@ -3,6 +3,7 @@
 import { Separator } from "@/components/ui/separator";
 import { MarketClock } from "@/components/cards/market-clock";
 import { MarketStatusCard } from "@/components/cards/market-status-card";
+import { NewsBoard } from "@/components/cards/news-board";
 import { TimezoneSelector } from "./timezone-selector";
 import { TIMEZONE_OPTIONS } from "@/lib/constants";
 import type { TimezoneKey } from "@/lib/types";
@@ -15,6 +16,13 @@ export function RightPanel() {
 
         <div className="flex justify-center">
           <TimezoneSelector />
+        </div>
+
+        <Separator className="bg-border" />
+
+        <div className="space-y-2">
+          <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Economic Calendar</p>
+          <NewsBoard />
         </div>
 
         <Separator className="bg-border" />
