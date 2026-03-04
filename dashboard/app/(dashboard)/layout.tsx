@@ -4,7 +4,6 @@ import { SidebarProvider } from "@/lib/context/sidebar-context";
 import { Sidebar } from "@/components/layout/sidebar";
 import { TopBar } from "@/components/layout/top-bar";
 import { RightPanel } from "@/components/layout/right-panel";
-import { ChatButton } from "@/components/shared/chat-button";
 import { MSSAlertProvider } from "@/lib/hooks/use-mss-alerts";
 import { NewsAlertProvider } from "@/lib/hooks/use-news-alerts";
 
@@ -27,7 +26,6 @@ export default function DashboardLayout({
           </div>
         </div>
       </div>
-      <ChatButton />
       <MSSAlertProvider />
       <NewsAlertProvider />
     </SidebarProvider>

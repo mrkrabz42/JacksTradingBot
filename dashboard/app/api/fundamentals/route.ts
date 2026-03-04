@@ -82,7 +82,7 @@ export async function GET(req: NextRequest) {
 
         // Log bias to SQLite (non-critical)
         try {
-          logBias(result);
+          await logBias(result);
         } catch {
           // Bias logging is non-critical
         }

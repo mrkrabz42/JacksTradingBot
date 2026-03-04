@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const history = getBiasHistory(symbol, days);
+    const history = await getBiasHistory(symbol, days);
     return NextResponse.json(history);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);

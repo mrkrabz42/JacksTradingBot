@@ -49,7 +49,7 @@ export async function GET(req: NextRequest) {
           if (!prices) prices = await fetchPrices(symbols);
           for (const sym of symbols) {
             if (prices[sym] != null) {
-              savePreEventPrice(event.id, event.name, event.scheduledAt, sym, prices[sym]);
+              await savePreEventPrice(event.id, event.name, event.scheduledAt, sym, prices[sym]);
             }
           }
           capturedEvents.set(event.id, { scheduledAt: eventTime, captured15m: false, captured1h: false });
@@ -61,7 +61,7 @@ export async function GET(req: NextRequest) {
           if (!prices) prices = await fetchPrices(symbols);
           for (const sym of symbols) {
             if (prices[sym] != null) {
-              updatePostEventPrice(event.id, sym, prices[sym], null);
+              await updatePostEventPrice(event.id, sym, prices[sym], null);
             }
           }
           tracker.captured15m = true;
@@ -73,7 +73,7 @@ export async function GET(req: NextRequest) {
           if (!prices) prices = await fetchPrices(symbols);
           for (const sym of symbols) {
             if (prices[sym] != null) {
-              updatePostEventPrice(event.id, sym, null, prices[sym]);
+              await updatePostEventPrice(event.id, sym, null, prices[sym]);
             }
           }
           tracker.captured1h = true;
@@ -85,7 +85,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Default: return recent reactions
-    const reactions = getRecentReactions();
+    const reactions = await getRecentReactions();
     return NextResponse.json(reactions);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
