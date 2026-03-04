@@ -363,9 +363,9 @@ function MSSCard({ event }: { event: MSSEvent }) {
 
       <div className="flex items-center justify-between text-xs">
         <span className="text-muted-foreground">
-          Close <span className="text-white font-medium">${event.price.toFixed(2)}</span>
+          Close <span className="text-foreground font-medium">${event.price.toFixed(2)}</span>
           {" / "}
-          CP <span className="text-white font-medium">${event.control_point_price.toFixed(2)}</span>
+          CP <span className="text-foreground font-medium">${event.control_point_price.toFixed(2)}</span>
         </span>
         {accepted ? (
           <span className="flex items-center gap-1 text-emerald-400">
@@ -492,9 +492,9 @@ function MSSCard({ event }: { event: MSSEvent }) {
       {event.mtf_alignment_state && (
         <div className="space-y-1">
           <div className="flex gap-3 text-[10px] text-muted-foreground">
-            <span>HTF: <span className="text-white font-medium">{event.htf_bias ?? "—"}</span></span>
-            <span>15M: <span className="text-white font-medium">{event.mtf_structure_bias ?? "—"}</span></span>
-            <span>5M: <span className="text-white font-medium">{event.ltf_direction ?? "—"}</span></span>
+            <span>HTF: <span className="text-foreground font-medium">{event.htf_bias ?? "—"}</span></span>
+            <span>15M: <span className="text-foreground font-medium">{event.mtf_structure_bias ?? "—"}</span></span>
+            <span>5M: <span className="text-foreground font-medium">{event.ltf_direction ?? "—"}</span></span>
           </div>
           <div className="flex items-center gap-2 text-[10px]">
             <span className="text-muted-foreground">MTF Alignment:</span>
@@ -516,18 +516,18 @@ function MSSCard({ event }: { event: MSSEvent }) {
           />
           <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 text-[10px] text-muted-foreground pl-0.5">
             {event.break_strength_score !== null && (
-              <span>Break Strength: <span className="text-white font-medium">{event.break_strength_score?.toFixed(0)}</span></span>
+              <span>Break Strength: <span className="text-foreground font-medium">{event.break_strength_score?.toFixed(0)}</span></span>
             )}
             {event.retest_quality_score !== null && (
-              <span>Retest Quality: <span className="text-white font-medium">{event.retest_quality_score?.toFixed(0)}</span>
+              <span>Retest Quality: <span className="text-foreground font-medium">{event.retest_quality_score?.toFixed(0)}</span>
                 {event.has_clean_retest && <span className="text-emerald-400 ml-1">✓</span>}
               </span>
             )}
             {event.volume_confirmation_score !== null && (
-              <span>Volume Confirm: <span className="text-white font-medium">{event.volume_confirmation_score?.toFixed(0)}</span></span>
+              <span>Volume Confirm: <span className="text-foreground font-medium">{event.volume_confirmation_score?.toFixed(0)}</span></span>
             )}
             {event.environment_alignment_score !== null && (
-              <span>Env Alignment: <span className="text-white font-medium">{event.environment_alignment_score?.toFixed(0)}</span></span>
+              <span>Env Alignment: <span className="text-foreground font-medium">{event.environment_alignment_score?.toFixed(0)}</span></span>
             )}
           </div>
         </div>
@@ -542,14 +542,14 @@ function MSSCard({ event }: { event: MSSEvent }) {
           </div>
           {event.confluence_components && (
             <div className="grid grid-cols-4 gap-x-2 gap-y-0.5 text-[10px] text-muted-foreground pt-0.5">
-              <span>Trend <span className="text-white">{event.confluence_components.trend}</span></span>
-              <span>Regime <span className="text-white">{event.confluence_components.regime}</span></span>
-              <span>Vol <span className="text-white">{event.confluence_components.volatility}</span></span>
-              <span>Volume <span className="text-white">{event.confluence_components.volume}</span></span>
-              <span>Liq <span className="text-white">{event.confluence_components.liquidity}</span></span>
-              <span>MTF <span className="text-white">{event.confluence_components.mtf}</span></span>
-              <span>MSS <span className="text-white">{event.confluence_components.mss}</span></span>
-              <span>BKT <span className="text-white">{event.confluence_components.breakout}</span></span>
+              <span>Trend <span className="text-foreground">{event.confluence_components.trend}</span></span>
+              <span>Regime <span className="text-foreground">{event.confluence_components.regime}</span></span>
+              <span>Vol <span className="text-foreground">{event.confluence_components.volatility}</span></span>
+              <span>Volume <span className="text-foreground">{event.confluence_components.volume}</span></span>
+              <span>Liq <span className="text-foreground">{event.confluence_components.liquidity}</span></span>
+              <span>MTF <span className="text-foreground">{event.confluence_components.mtf}</span></span>
+              <span>MSS <span className="text-foreground">{event.confluence_components.mss}</span></span>
+              <span>BKT <span className="text-foreground">{event.confluence_components.breakout}</span></span>
             </div>
           )}
         </div>
@@ -572,7 +572,7 @@ export default function BotStatusPage() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-white">Bot Status</h1>
+          <h1 className="text-2xl font-bold text-foreground">Bot Status</h1>
           <p className="text-sm text-muted-foreground mt-1">Session liquidity levels and market structure</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -591,7 +591,7 @@ export default function BotStatusPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">Bot Status</h1>
+        <h1 className="text-2xl font-bold text-foreground">Bot Status</h1>
         <p className="text-sm text-muted-foreground mt-1">
           Session liquidity levels for {status.symbol} &mdash; {new Date(status.timestamp).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit", timeZone: "UTC" })} UTC
         </p>
@@ -612,13 +612,13 @@ export default function BotStatusPage() {
         <Card className="bg-card border-border">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-              <Activity className="h-4 w-4 text-pink" />
+              <Activity className="h-4 w-4 text-brand" />
               Current Session
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className={cn("text-lg font-bold", SESSION_TEXT_COLORS[current_session.session] ?? "text-white")}>
+              <span className={cn("text-lg font-bold", SESSION_TEXT_COLORS[current_session.session] ?? "text-foreground")}>
                 {current_session.label}
               </span>
               {current_session.session !== "OUTSIDE" && (
@@ -675,7 +675,7 @@ export default function BotStatusPage() {
                     return (
                       <tr key={s.session} className="border-b border-border/50">
                         <td className="py-2">
-                          <span className={cn("font-medium", SESSION_TEXT_COLORS[s.session] ?? "text-white")}>
+                          <span className={cn("font-medium", SESSION_TEXT_COLORS[s.session] ?? "text-foreground")}>
                             {s.session}
                           </span>
                         </td>
@@ -725,7 +725,7 @@ export default function BotStatusPage() {
                 <div
                   key={s.name}
                   className={cn(
-                    "absolute top-1 bottom-1 rounded opacity-70 flex items-center justify-center text-[10px] font-bold text-white",
+                    "absolute top-1 bottom-1 rounded opacity-70 flex items-center justify-center text-[10px] font-bold text-foreground",
                     SESSION_COLORS[s.name]
                   )}
                   style={{
@@ -743,10 +743,10 @@ export default function BotStatusPage() {
                 const hourFrac = now.getUTCHours() + now.getUTCMinutes() / 60;
                 return (
                   <div
-                    className="absolute top-0 bottom-0 w-0.5 bg-pink z-10"
+                    className="absolute top-0 bottom-0 w-0.5 bg-brand z-10"
                     style={{ left: `${(hourFrac / 24) * 100}%` }}
                   >
-                    <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-pink rounded-full" />
+                    <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-brand rounded-full" />
                   </div>
                 );
               })()}
@@ -877,15 +877,15 @@ export default function BotStatusPage() {
                   <div className="flex gap-6 text-sm">
                     <div>
                       <span className="text-muted-foreground">ADX </span>
-                      <span className="text-white font-mono font-medium">{regimeData.adx.toFixed(1)}</span>
+                      <span className="text-foreground font-mono font-medium">{regimeData.adx.toFixed(1)}</span>
                     </div>
                     <div>
                       <span className="text-muted-foreground">BB Width </span>
-                      <span className="text-white font-mono font-medium">{(regimeData.bb_width * 100).toFixed(2)}%</span>
+                      <span className="text-foreground font-mono font-medium">{(regimeData.bb_width * 100).toFixed(2)}%</span>
                     </div>
                     <div>
                       <span className="text-muted-foreground">VWAP Dist </span>
-                      <span className="text-white font-mono font-medium">{(regimeData.vwap_distance * 100).toFixed(2)}%</span>
+                      <span className="text-foreground font-mono font-medium">{(regimeData.vwap_distance * 100).toFixed(2)}%</span>
                     </div>
                   </div>
                 </div>
@@ -1233,14 +1233,14 @@ export default function BotStatusPage() {
               <div className="h-32 flex items-center justify-center">
                 <p className="text-sm text-muted-foreground animate-pulse">Loading MSS data...</p>
               </div>
-            ) : !mss || mss.events.length === 0 ? (
+            ) : !mss || !mss.events || mss.events.length === 0 ? (
               <p className="text-sm text-muted-foreground">No MSS events detected.</p>
             ) : (
               <div className="space-y-4">
                 {/* Stats row */}
                 <div className="grid grid-cols-4 gap-3">
                   <div className="bg-zinc-800/50 rounded-lg p-2.5 text-center">
-                    <p className="text-lg font-bold text-white">{mss.total_mss}</p>
+                    <p className="text-lg font-bold text-foreground">{mss.total_mss}</p>
                     <p className="text-[10px] text-muted-foreground">Total</p>
                   </div>
                   <div className="bg-emerald-500/10 rounded-lg p-2.5 text-center border border-emerald-500/20">

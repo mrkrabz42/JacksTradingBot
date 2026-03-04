@@ -30,17 +30,17 @@ export function TopBar() {
   })();
 
   return (
-    <header className="h-14 border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-30 flex items-center px-4 gap-4">
+    <header className="h-14 border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-30 flex items-center px-4 gap-4">
       {/* Mobile hamburger */}
       <button
         onClick={() => setMobileOpen(true)}
-        className="lg:hidden text-muted-foreground hover:text-white"
+        className="lg:hidden text-muted-foreground hover:text-foreground"
       >
         <Menu className="h-5 w-5" />
       </button>
 
       {/* Page title */}
-      <h2 className="text-lg font-semibold text-white">{pageTitle}</h2>
+      <h2 className="text-lg font-semibold text-foreground">{pageTitle}</h2>
 
       {/* Center: live dot */}
       <div className="hidden sm:flex items-center gap-2 ml-auto mr-auto">
@@ -52,7 +52,7 @@ export function TopBar() {
       <div className="flex items-center gap-3 ml-auto">
         <button
           onClick={() => window.location.reload()}
-          className="text-muted-foreground hover:text-white transition-colors"
+          className="text-muted-foreground hover:text-foreground transition-colors"
           title="Refresh"
         >
           <RefreshCw className="h-4 w-4" />
@@ -62,11 +62,11 @@ export function TopBar() {
           {selected.flag} {time}
         </span>
 
-        <button className="text-muted-foreground hover:text-white transition-colors relative">
+        <button className="text-muted-foreground hover:text-foreground transition-colors relative">
           <Bell className="h-4 w-4" />
         </button>
 
-        <div className="h-8 w-8 rounded-full bg-pink/20 flex items-center justify-center text-xs font-bold text-pink">
+        <div className="h-8 w-8 rounded-full bg-brand/20 flex items-center justify-center text-xs font-bold text-brand">
           MK
         </div>
       </div>

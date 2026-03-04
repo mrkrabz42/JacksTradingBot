@@ -63,7 +63,6 @@ export const NAV_ITEMS: NavItem[] = [
   { key: "dashboard", label: "Dashboard", icon: "LayoutDashboard", href: "/" },
   { key: "news", label: "News", icon: "Globe", href: "/news" },
   { key: "bot", label: "Bot Status", icon: "Activity", href: "/bot" },
-  { key: "backtest", label: "Backtest", icon: "CandlestickChart", href: "/backtest" },
 ];
 
 export const LOCALSTORAGE_KEY_SIDEBAR = "mr10krabs_sidebar_collapsed";

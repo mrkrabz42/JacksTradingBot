@@ -62,7 +62,7 @@ export function ChatButton() {
         <div className="flex items-center justify-between px-4 py-3 border-b border-border">
           <div className="flex items-center gap-2">
             <span className="text-base font-semibold">Mr 10Krabs</span>
-            <span className="text-[10px] bg-pink-deep/20 text-pink px-1.5 py-0.5 rounded-full font-medium">
+            <span className="text-[10px] bg-brand-deep/20 text-brand px-1.5 py-0.5 rounded-full font-medium">
               AI
             </span>
           </div>
@@ -94,7 +94,7 @@ export function ChatButton() {
               <div
                 className={`max-w-[85%] px-3 py-2 rounded-xl text-sm leading-relaxed ${
                   msg.role === "user"
-                    ? "bg-pink-deep text-white rounded-br-sm"
+                    ? "bg-brand-deep text-white rounded-br-sm"
                     : "bg-secondary text-foreground rounded-bl-sm"
                 }`}
               >
@@ -143,12 +143,12 @@ export function ChatButton() {
               onKeyDown={handleKeyDown}
               placeholder="Ask Mr 10Krabs..."
               disabled={isLoading}
-              className="flex-1 bg-secondary/50 border border-border rounded-lg px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-pink-deep/50 disabled:opacity-50"
+              className="flex-1 bg-secondary/50 border border-border rounded-lg px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-brand-deep/50 disabled:opacity-50"
             />
             <button
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
-              className="p-2 rounded-lg bg-pink-deep hover:bg-pink text-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="p-2 rounded-lg bg-brand-deep hover:bg-brand text-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <Send className="h-4 w-4" />
             </button>
@@ -159,7 +159,7 @@ export function ChatButton() {
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 bg-pink-deep hover:bg-pink text-white w-12 h-12 rounded-full shadow-lg shadow-pink/20 transition-all hover:scale-105 flex items-center justify-center text-lg"
+        className="fixed bottom-6 right-6 z-50 bg-brand-deep hover:bg-brand text-white w-12 h-12 rounded-full shadow-lg shadow-brand/20 transition-all hover:scale-105 flex items-center justify-center text-lg"
       >
         {isOpen ? <X className="h-5 w-5" /> : "🦀"}
       </button>

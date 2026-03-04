@@ -54,7 +54,7 @@ export function getMarketStatus(now: Date, exchangeKey: TimezoneKey): MarketStat
         status: "open",
         label: "Market Open",
         countdown: formatCountdown(closeMin - currentMin),
-        dotColor: "bg-pink",
+        dotColor: "bg-brand",
       };
     }
   }

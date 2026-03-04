@@ -73,18 +73,18 @@ function MarketViewInner() {
         <div className="flex items-center gap-4">
           <button
             onClick={() => router.push("/")}
-            className="text-muted-foreground hover:text-white transition-colors"
+            className="text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="h-5 w-5" />
           </button>
 
           <div className="flex items-center gap-3">
-            <span className="text-lg font-bold text-white">{instrument?.shortName ?? symbol}</span>
+            <span className="text-lg font-bold text-foreground">{instrument?.shortName ?? symbol}</span>
             <span className="text-sm text-muted-foreground">{displayName}</span>
           </div>
 
           <div className="flex items-center gap-2 ml-4">
-            <span className="text-lg font-bold text-white">
+            <span className="text-lg font-bold text-foreground">
               ${fmtPrice(currentPrice)}
             </span>
             <span className={cn(
@@ -101,10 +101,10 @@ function MarketViewInner() {
         {/* OHLCV display */}
         {displayBar && (
           <div className="hidden md:flex items-center gap-4 text-xs font-mono">
-            <span className="text-muted-foreground">O <span className="text-white">{fmtPrice(displayBar.open)}</span></span>
+            <span className="text-muted-foreground">O <span className="text-foreground">{fmtPrice(displayBar.open)}</span></span>
             <span className="text-muted-foreground">H <span className="text-success">{fmtPrice(displayBar.high)}</span></span>
             <span className="text-muted-foreground">L <span className="text-loss">{fmtPrice(displayBar.low)}</span></span>
-            <span className="text-muted-foreground">C <span className="text-white">{fmtPrice(displayBar.close)}</span></span>
+            <span className="text-muted-foreground">C <span className="text-foreground">{fmtPrice(displayBar.close)}</span></span>
             <span className="text-muted-foreground">V <span className="text-blue-400">{Math.round(displayBar.volume).toLocaleString()}</span></span>
           </div>
         )}
@@ -119,8 +119,8 @@ function MarketViewInner() {
             className={cn(
               "px-3 py-1 rounded text-xs font-medium transition-colors",
               tf.value === timeframe.value
-                ? "bg-blue-600 text-white"
-                : "text-muted-foreground hover:text-white hover:bg-white/5"
+                ? "bg-blue-600 text-foreground"
+                : "text-muted-foreground hover:text-foreground hover:bg-black/5"
             )}
           >
             {tf.label}

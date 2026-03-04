@@ -24,7 +24,7 @@ export function TimezoneSelector() {
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-white transition-colors px-2 py-1 rounded-md hover:bg-secondary"
+        className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded-md hover:bg-secondary"
       >
         <span>{selected.flag}</span>
         <span>{selected.label}</span>
@@ -42,8 +42,8 @@ export function TimezoneSelector() {
               }}
               className={`w-full flex items-center gap-3 px-3 py-2 text-sm transition-colors ${
                 opt.key === selected.key
-                  ? "text-pink bg-pink/10"
-                  : "text-muted-foreground hover:text-white hover:bg-secondary"
+                  ? "text-brand bg-brand/10"
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary"
               }`}
             >
               <span>{opt.flag}</span>

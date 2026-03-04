@@ -138,7 +138,7 @@ function ScoreRing({ score }: { score: number }) {
     <div className="relative flex items-center justify-center flex-shrink-0" style={{ width: size, height: size }}>
       <div className="absolute inset-0 rounded-full bg-card border border-border" />
       <svg width={size} height={size} className="-rotate-90 relative z-10">
-        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="hsl(225, 30%, 20%)" strokeWidth={strokeWidth} />
+        <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="hsl(0, 0%, 88%)" strokeWidth={strokeWidth} />
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -151,7 +151,7 @@ function ScoreRing({ score }: { score: number }) {
           strokeLinecap="round"
         />
       </svg>
-      <span className="absolute text-base font-bold text-blue-400 z-20">{score}</span>
+      <span className="absolute text-base font-bold text-blue-600 z-20">{score}</span>
     </div>
   );
 }
@@ -209,7 +209,7 @@ export function PathwayCard({ data, fundamentals, volatilityWarning }: { data: P
       <div className="p-5 space-y-4">
         {/* 2. Account Equity + 3. Live Price */}
         <div className="flex items-start justify-between">
-          <p className="text-3xl font-bold text-white tracking-tight">
+          <p className="text-3xl font-bold text-foreground tracking-tight">
             {formatPrice(accountEquity)}
           </p>
           <div className="text-right">
@@ -237,7 +237,7 @@ export function PathwayCard({ data, fundamentals, volatilityWarning }: { data: P
             {bias === "BEARISH" && <ArrowDown className="h-3 w-3" />}
             {bias}
           </span>
-          <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-muted-foreground border border-border">
+          <span className="px-3 py-1 rounded-full text-xs font-semibold bg-black/5 text-muted-foreground border border-border">
             {marketState}
           </span>
           <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-orange-500/10 text-orange-400 border border-orange-500/30">
@@ -250,7 +250,7 @@ export function PathwayCard({ data, fundamentals, volatilityWarning }: { data: P
           <div className="flex-1">
             <p className="text-xs text-muted-foreground mb-1">Target liquidity:</p>
             <div className="flex items-center gap-1.5">
-              <span className="text-base font-bold text-white">{targetLiquidity.label}</span>
+              <span className="text-base font-bold text-foreground">{targetLiquidity.label}</span>
               {targetLiquidity.direction === "up" ? (
                 <ArrowUp className="h-4 w-4 text-success" />
               ) : (

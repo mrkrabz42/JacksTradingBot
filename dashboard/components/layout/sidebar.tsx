@@ -46,27 +46,27 @@ export function Sidebar() {
     <div className="flex flex-col h-full">
       {/* Logo */}
       <div className={cn(
-        "flex items-center gap-3 px-4 py-5 border-b border-sidebar-border",
-        collapsed && "justify-center px-2"
+        "flex flex-col items-center gap-2 px-4 py-5 border-b border-sidebar-border",
+        collapsed && "px-2"
       )}>
         <Image
           src="/logo.png"
           alt="The World Is Yours"
-          width={collapsed ? 36 : 48}
-          height={collapsed ? 36 : 48}
+          width={collapsed ? 40 : 96}
+          height={collapsed ? 40 : 96}
           className="flex-shrink-0 rounded-md object-contain"
           priority
         />
         {!collapsed && (
-          <div className="overflow-hidden">
-            <h1 className="text-sm font-bold text-white whitespace-nowrap tracking-widest">THE WORLD IS YOURS</h1>
-            <span className="text-[10px] text-pink font-medium">ANALYSIS MODE</span>
+          <div className="text-center">
+            <h1 className="text-sm font-bold text-brand whitespace-nowrap tracking-[0.25em]">THE WORLD IS YOURS</h1>
+            <span className="text-[10px] text-zinc-400 font-medium tracking-wider">ANALYSIS MODE</span>
           </div>
         )}
         {/* Mobile close button */}
         <button
           onClick={() => setMobileOpen(false)}
-          className="ml-auto lg:hidden text-muted-foreground hover:text-white"
+          className="absolute top-4 right-4 lg:hidden text-zinc-400 hover:text-white"
         >
           <X className="h-4 w-4" />
         </button>
@@ -85,15 +85,15 @@ export function Sidebar() {
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200 group relative",
                 active
-                  ? "bg-pink/10 text-white"
-                  : "text-muted-foreground hover:text-white hover:bg-white/5",
+                  ? "bg-brand/10 text-white"
+                  : "text-zinc-400 hover:text-white hover:bg-white/5",
                 collapsed && "justify-center px-2"
               )}
             >
               {active && (
-                <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-pink rounded-r-full" />
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-brand rounded-r-full" />
               )}
-              {Icon && <Icon className={cn("h-4 w-4 flex-shrink-0", active && "text-pink")} />}
+              {Icon && <Icon className={cn("h-4 w-4 flex-shrink-0", active && "text-brand")} />}
               {!collapsed && <span>{item.label}</span>}
             </Link>
           );
@@ -104,7 +104,7 @@ export function Sidebar() {
       <div className="hidden lg:block border-t border-sidebar-border p-2">
         <button
           onClick={toggleSidebar}
-          className="flex items-center gap-2 w-full px-3 py-2 text-sm text-muted-foreground hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+          className="flex items-center gap-2 w-full px-3 py-2 text-sm text-zinc-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
         >
           {collapsed ? (
             <ChevronsRight className="h-4 w-4 mx-auto" />

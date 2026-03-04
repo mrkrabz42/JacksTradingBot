@@ -63,7 +63,7 @@ function EventRow({ event }: { event: CalendarEvent }) {
           <CountryFlag country={event.country} />
           <span className={cn(
             "text-[11px] truncate",
-            isImminent ? "font-bold text-white" : "text-zinc-300",
+            isImminent ? "font-bold text-foreground" : "text-zinc-600",
           )}>
             {event.name}
           </span>
@@ -71,7 +71,7 @@ function EventRow({ event }: { event: CalendarEvent }) {
         {event.actual && (
           <div className="flex gap-2 mt-0.5">
             <span className="text-[9px] text-muted-foreground">
-              Act: <span className="text-white font-medium">{event.actual}</span>
+              Act: <span className="text-foreground font-medium">{event.actual}</span>
             </span>
             {event.previous && (
               <span className="text-[9px] text-muted-foreground">

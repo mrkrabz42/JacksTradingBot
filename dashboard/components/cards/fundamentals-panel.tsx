@@ -30,7 +30,7 @@ function StrengthBar({ strength, dampened }: { strength: number; dampened?: bool
 
   return (
     <div className="flex items-center gap-2">
-      <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
+      <div className="flex-1 h-1.5 bg-black/5 rounded-full overflow-hidden">
         <div
           className={cn("h-full rounded-full transition-all duration-500", color)}
           style={{ width: `${displayStrength}%` }}
@@ -71,7 +71,7 @@ function FactorRow({ factor }: { factor: FundamentalFactor }) {
     <div className="flex items-center gap-2 py-1">
       <DirectionIcon direction={factor.direction} />
       <StateChangeArrow factor={factor} />
-      <span className="flex-1 text-[11px] text-zinc-300 truncate">{factor.name}</span>
+      <span className="flex-1 text-[11px] text-foreground/80 truncate">{factor.name}</span>
       <span className="text-[10px] text-muted-foreground font-mono w-4 text-center">{factor.weight}</span>
       <span className={cn("text-[11px] font-bold font-mono w-6 text-right", contribColor)}>
         {factor.contribution > 0 ? "+" : ""}{factor.contribution}
@@ -109,9 +109,9 @@ export function FundamentalsPanel({ data, eventDampening }: { data: Fundamentals
             </span>
           )}
           {expanded ? (
-            <ChevronUp className="h-3.5 w-3.5 text-muted-foreground group-hover:text-white transition-colors" />
+            <ChevronUp className="h-3.5 w-3.5 text-muted-foreground group-hover:text-foreground transition-colors" />
           ) : (
-            <ChevronDown className="h-3.5 w-3.5 text-muted-foreground group-hover:text-white transition-colors" />
+            <ChevronDown className="h-3.5 w-3.5 text-muted-foreground group-hover:text-foreground transition-colors" />
           )}
         </div>
       </button>
@@ -137,7 +137,7 @@ export function FundamentalsPanel({ data, eventDampening }: { data: Fundamentals
           {/* Net score summary */}
           <div className="flex items-center justify-between pt-2 border-t border-border/30">
             <span className="text-[10px] text-muted-foreground">
-              Net: <span className="font-bold text-white">{data.netScore > 0 ? "+" : ""}{data.netScore}</span>
+              Net: <span className="font-bold text-foreground">{data.netScore > 0 ? "+" : ""}{data.netScore}</span>
               <span className="text-muted-foreground/50"> / {data.maxPossibleScore}</span>
             </span>
             <span className="text-[9px] text-muted-foreground/50">

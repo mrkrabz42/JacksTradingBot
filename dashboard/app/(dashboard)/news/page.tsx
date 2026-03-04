@@ -74,7 +74,7 @@ function EventCard({ event }: { event: CalendarEvent }) {
           <span
             className={cn(
               "text-sm font-semibold truncate",
-              isImminent ? "text-white" : "text-zinc-200",
+              isImminent ? "text-foreground" : "text-zinc-700",
             )}
           >
             {event.name}
@@ -90,19 +90,19 @@ function EventCard({ event }: { event: CalendarEvent }) {
         {event.forecast && (
           <div className="text-center">
             <p className="text-[10px] text-muted-foreground/60 uppercase">Fcst</p>
-            <p className="text-zinc-300 font-mono">{event.forecast}</p>
+            <p className="text-zinc-600 font-mono">{event.forecast}</p>
           </div>
         )}
         {event.previous && (
           <div className="text-center">
             <p className="text-[10px] text-muted-foreground/60 uppercase">Prev</p>
-            <p className="text-zinc-300 font-mono">{event.previous}</p>
+            <p className="text-zinc-600 font-mono">{event.previous}</p>
           </div>
         )}
         {event.actual && (
           <div className="text-center">
             <p className="text-[10px] text-muted-foreground/60 uppercase">Act</p>
-            <p className="text-white font-bold font-mono">{event.actual}</p>
+            <p className="text-foreground font-bold font-mono">{event.actual}</p>
           </div>
         )}
       </div>
@@ -152,7 +152,7 @@ function FundamentalsCard({ data }: { data: FundamentalsData }) {
   return (
     <div className="bg-card border border-border rounded-xl p-4 space-y-3">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-bold text-white">{data.symbol.replace("_", "/")}</span>
+        <span className="text-sm font-bold text-foreground">{data.symbol.replace("_", "/")}</span>
         <span className={cn("px-2.5 py-0.5 rounded-full text-[11px] font-bold border", biasColor)}>
           {data.netBias}
         </span>
@@ -213,7 +213,7 @@ function ReactionGroup({ eventName, scheduledAt, reactions }: { eventName: strin
   return (
     <div className="bg-card border border-border rounded-xl p-4 space-y-3">
       <div className="flex items-center justify-between">
-        <span className="text-sm font-bold text-white">{eventName}</span>
+        <span className="text-sm font-bold text-foreground">{eventName}</span>
         <span className="text-[10px] text-muted-foreground font-mono">
           {new Date(scheduledAt).toLocaleString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
         </span>
@@ -225,7 +225,7 @@ function ReactionGroup({ eventName, scheduledAt, reactions }: { eventName: strin
       </div>
       {reactions.map((r) => (
         <div key={r.symbol} className="grid grid-cols-3 gap-1 text-center items-center">
-          <span className="text-[11px] text-zinc-300 font-medium">{r.symbol.replace("_", "/")}</span>
+          <span className="text-[11px] text-zinc-600 font-medium">{r.symbol.replace("_", "/")}</span>
           <DeltaBadge value={r.delta15mPct} />
           <DeltaBadge value={r.delta1hPct} />
         </div>
@@ -253,7 +253,7 @@ export default function NewsPage() {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-xl font-bold text-white">News & Fundamentals</h1>
+        <h1 className="text-xl font-bold text-foreground">News & Fundamentals</h1>
         <p className="text-sm text-muted-foreground mt-1">
           Economic calendar and macro factor scores across all instruments
         </p>

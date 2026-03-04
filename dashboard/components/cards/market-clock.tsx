@@ -22,9 +22,9 @@ export function MarketClock() {
 
   return (
     <div className="text-center py-4">
-      <p className="text-3xl font-mono font-bold text-white tracking-wider">{time}</p>
+      <p className="text-3xl font-mono font-bold text-foreground tracking-wider">{time}</p>
       <p className="text-xs text-muted-foreground mt-1">{date}</p>
-      <p className="text-xs text-pink mt-1">{selected.flag} {selected.label} ({selected.abbr})</p>
+      <p className="text-xs text-brand mt-1">{selected.flag} {selected.label} ({selected.abbr})</p>
     </div>
   );
 }

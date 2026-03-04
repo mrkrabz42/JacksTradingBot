@@ -51,16 +51,17 @@ const config: Config = {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
-        pink: {
-          DEFAULT: "#FF69B4",
-          deep: "#FF1493",
+        brand: {
+          DEFAULT: "#DC2626",
+          deep: "#B91C1C",
+          light: "#F87171",
         },
         cyan: {
           DEFAULT: "hsl(var(--cyan))",
         },
-        success: "#10b981",
-        loss: "#ef4444",
-        elevated: "#1a1a2e",
+        success: "#059669",
+        loss: "#DC2626",
+        elevated: "#F5F5F5",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar))",
           border: "hsl(var(--sidebar-border))",
